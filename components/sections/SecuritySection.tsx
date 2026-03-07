@@ -8,12 +8,6 @@ const text = "all your personal data and transactions are encrypted and secured.
 const words = text.split(" ");
 
 function Word({ word, index, progress }: { word: string; index: number; progress: MotionValue<number> }) {
-    const [mounted, setMounted] = useState(false);
-    
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
     const [opacity, setOpacity] = useState(0.15);
     const [glow, setGlow] = useState(0);
 
@@ -52,10 +46,11 @@ function Word({ word, index, progress }: { word: string; index: number; progress
             >
                 <span
                     style={{
-                        fontFamily: '"Inter", "SF Pro Display", -apple-system, system-ui, sans-serif',
+                        fontFamily: '"Syne", "Bebas Neue", "Oswald", sans-serif',
                         fontWeight: 800,
                         fontSize: 'inherit',
-                        letterSpacing: '-0.02em',
+                        letterSpacing: '0.02em',
+                        textTransform: 'uppercase',
                         textShadow: glow > 0 
                             ? `0 0 ${20 * glow}px rgba(255,255,255,${0.9 * glow}), 0 0 ${40 * glow}px rgba(255,255,255,${0.6 * glow})`
                             : 'none',
@@ -82,6 +77,10 @@ export default function SecuritySection() {
             id="security"
             className="relative bg-black min-h-[200vh]"
         >
+            <style jsx global>{`
+                @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap');
+            `}</style>
+            
             <div className="sticky top-0 h-screen flex flex-col items-center justify-center px-6 py-20">
                 <motion.div
                     className="mb-10 p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm"
@@ -106,9 +105,9 @@ export default function SecuritySection() {
                 <p 
                     className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.1] flex flex-wrap justify-center max-w-4xl mx-auto uppercase"
                     style={{
-                        fontFamily: '"Inter", "SF Pro Display", -apple-system, system-ui, sans-serif',
+                        fontFamily: '"Syne", "Bebas Neue", "Oswald", sans-serif',
                         fontWeight: 800,
-                        letterSpacing: '-0.02em',
+                        letterSpacing: '0.02em',
                     }}
                 >
                     {words.map((word, index) => (
