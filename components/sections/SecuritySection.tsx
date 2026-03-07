@@ -1,133 +1,80 @@
-"use client";
+'use client';
 
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Shield, Lock } from "lucide-react";
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
+import { Lock } from 'lucide-react';
 
-const securityText = "all your personal data and transactions are encrypted and secured. there's no room for mistakes because we didn't leave any.";
+const text = "all your personal data and transactions are encrypted and secured. there's no room for mistakes because we didn't leave any.";
 
-const words = securityText.split(" ");
+const Word = ({ children, progress, range }: { children: string, progress: MotionValue<number>, range: [number, number] }) => {
+    const opacity = useTransform(progress, range, [0, 1]);
 
-function GlowingWord({ word, index, total }: { word: string; index: number; total: number }) {
-    const ref = useRef<HTMLSpanElement>(null);
-    
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ["start 0.9", "start 0.5"]
-    });
-
-    const opacity = useTransform(scrollYProgress, [0, 1], [0.2, 1]);
-    const glow = useTransform(scrollYProgress, [0, 1], [0, 1]);
-    
     return (
-        <motion.span
-            ref={ref}
-            className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight inline-block mx-1 md:mx-2"
-            style={{ 
-                opacity,
-                color: "white",
-            }}
-        >
+        <span className="relative inline-block mr-3 mb-2 md:mr-4 md:mb-4 lg:mr-5 lg:mb-5">
+            <span className="text-white/20 select-none transition-colors duration-300 relative z-0">
+                {children}
+            </span>
+
             <motion.span
-                style={{
-                    display: "inline-block",
-                    textShadow: useTransform(
-                        glow,
-                        [0, 1],
-                        [
-                            "0 0 0px rgba(255,255,255,0), 0 0 0px rgba(245,158,11,0)",
-                            "0 0 40px rgba(255,255,255,0.8), 0 0 80px rgba(245,158,11,0.4), 0 0 120px rgba(245,158,11,0.2)"
-                        ]
-                    ),
-                }}
+                style={{ opacity }}
+                className="absolute left-0 top-0 text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] z-10"
             >
-                {word}
+                {children}
             </motion.span>
-        </motion.span>
+        </span>
     );
-}
+};
 
 export default function SecuritySection() {
-    const sectionRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const words = text.split(" ");
+
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start 50%", "end 100%"]
+    });
 
     return (
-        <section 
-            ref={sectionRef}
-            className="min-h-[200vh] bg-black relative overflow-hidden"
+        <section
+            ref={containerRef}
+            id="security"
+            className="relative bg-black h-[200vh] pt-[15vh] px-6"
         >
-            <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[#F59E0B]/3 rounded-full blur-[180px]" />
-                <div className="absolute inset-0 opacity-[0.02]" 
-                    style={{
-                        backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-                        backgroundSize: '40px 40px'
-                    }}
-                />
-            </div>
+            <div className="sticky top-[20vh] max-w-5xl mx-auto flex flex-col items-center text-center">
 
-            <div className="sticky top-0 min-h-screen flex flex-col items-center justify-center px-6 py-20">
-                <div className="relative z-10 max-w-6xl mx-auto text-center">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                        className="flex justify-center mb-12"
-                    >
-                        <div className="relative">
-                            <Shield size={56} className="text-[#F59E0B]" strokeWidth={1.5} />
-                            <motion.div
-                                className="absolute inset-0 -z-10 rounded-full"
-                                animate={{
-                                    boxShadow: [
-                                        '0 0 40px rgba(245,158,11,0.4)',
-                                        '0 0 80px rgba(245,158,11,0.6)',
-                                        '0 0 40px rgba(245,158,11,0.4)'
-                                    ]
-                                }}
-                                transition={{ duration: 2, repeat: Infinity }}
-                            />
-                        </div>
-                    </motion.div>
+                <motion.div
+                    className="mb-8 p-4 rounded-2xl bg-white/5 border border-white/10"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    viewport={{ once: true }}
+                >
+                    <Lock className="w-12 h-12 text-white" />
+                </motion.div>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.1 }}
-                        className="mb-20"
-                    >
-                        <span className="inline-block px-6 py-2.5 rounded-full text-[11px] font-bold uppercase tracking-[0.3em] bg-[#F59E0B]/10 border border-[#F59E0B]/30 text-[#F59E0B]">
-                            Your Data Isn't Our Business. Keeping It Safe Is.
-                        </span>
-                    </motion.div>
+                <motion.h3
+                    className="text-xs md:text-sm font-semibold tracking-[0.3em] uppercase text-white/60 mb-16"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    viewport={{ once: true }}
+                >
+                    YOUR DATA ISN'T OUR BUSINESS. KEEPING IT SAFE IS.
+                </motion.h3>
 
-                    <div className="flex flex-wrap justify-center gap-y-3 md:gap-y-4 max-w-5xl mx-auto leading-tight md:leading-tight">
-                        {words.map((word, index) => (
-                            <GlowingWord 
-                                key={index} 
-                                word={word} 
-                                index={index} 
-                                total={words.length} 
-                            />
-                        ))}
-                    </div>
+                <p className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight flex flex-wrap justify-center max-w-4xl mx-auto italic">
+                    {words.map((word, i) => {
+                        const start = i / words.length;
+                        const end = start + (1 / words.length);
+                        return (
+                            <Word key={i} progress={scrollYProgress} range={[start, end]}>
+                                {word}
+                            </Word>
+                        )
+                    })}
+                </p>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 1.5, duration: 0.5 }}
-                        className="mt-24 flex justify-center"
-                    >
-                        <div className="flex items-center gap-3 px-8 py-4 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
-                            <Lock size={18} className="text-[#F59E0B]" />
-                            <span className="text-sm font-semibold text-white/60 uppercase tracking-wider">
-                                End-to-End Encryption
-                            </span>
-                        </div>
-                    </motion.div>
-                </div>
+                <div className="w-24 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent mt-24" />
             </div>
         </section>
     );
