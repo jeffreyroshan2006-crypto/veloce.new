@@ -75,7 +75,7 @@ export default function SecuritySection() {
         <section
             ref={containerRef}
             id="security"
-            className="relative bg-black min-h-[200vh]"
+            className="relative bg-black min-h-[120vh]"
         >
             <style jsx global>{`
                 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap');
