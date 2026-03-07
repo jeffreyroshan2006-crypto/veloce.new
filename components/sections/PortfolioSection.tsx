@@ -77,16 +77,16 @@ const features = [
 function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
   const [isHovered, setIsHovered] = useState(false);
 
-  const yOffset = index % 2 === 0 ? -20 : 20;
-  const rotate = index % 2 === 0 ? -2 : 2;
+  const yOffset = index % 2 === 0 ? -15 : 15;
+  const rotate = index % 2 === 0 ? -1.5 : 1.5;
 
   return (
     <motion.div
       className="absolute"
       initial={{ 
-        x: 500, 
+        x: 600, 
         opacity: 0,
-        scale: 0.85,
+        scale: 0.8,
         rotate: 0
       }}
       whileInView={{ 
@@ -95,12 +95,12 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
         scale: 1,
         rotate: rotate
       }}
-      viewport={{ once: true, margin: "-150px" }}
+      viewport={{ once: true, margin: "-200px" }}
       transition={{ 
         type: "spring",
-        stiffness: 45,
-        damping: 14,
-        delay: index * 0.1,
+        stiffness: 40,
+        damping: 12,
+        delay: index * 0.15,
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -110,23 +110,23 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
       }}
     >
       <motion.div
-        className="relative w-[320px] md:w-[380px] aspect-[16/9] rounded-xl overflow-hidden cursor-pointer"
+        className="relative w-[360px] md:w-[420px] aspect-[16/9] rounded-xl overflow-hidden cursor-pointer"
         animate={isHovered ? { 
-          scale: 1.05,
-          y: -25,
+          scale: 1.06,
+          y: -30,
           rotate: 0,
           zIndex: 100
         } : {}}
         transition={{ 
           type: "spring",
-          stiffness: 250,
-          damping: 20,
+          stiffness: 220,
+          damping: 18,
         }}
         style={{
           background: '#0a0a0a',
           boxShadow: isHovered 
-            ? `0 35px 70px -25px ${project.color}50, 0 0 60px ${project.color}20`
-            : `0 12px 35px -12px rgba(0,0,0,0.5)`,
+            ? `0 40px 80px -30px ${project.color}55, 0 0 70px ${project.color}25`
+            : `0 15px 40px -15px rgba(0,0,0,0.5)`,
         }}
       >
         <div className="absolute inset-0 overflow-hidden">
@@ -134,21 +134,21 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             src={project.image}
             alt={project.title}
             className="w-full h-full object-cover"
-            animate={{ scale: isHovered ? 1.08 : 1 }}
+            animate={{ scale: isHovered ? 1.1 : 1 }}
             transition={{ duration: 0.5 }}
           />
         </div>
 
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
         
-        <div className="absolute inset-0 p-4 flex flex-col justify-end">
+        <div className="absolute inset-0 p-5 flex flex-col justify-end">
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 12 }}
-            transition={{ duration: 0.25 }}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 15 }}
+            transition={{ duration: 0.3 }}
           >
             <span 
-              className="inline-block px-2.5 py-1 rounded text-[8px] font-bold uppercase tracking-wider mb-1.5"
+              className="inline-block px-3 py-1.5 rounded text-[9px] font-bold uppercase tracking-wider mb-2"
               style={{ 
                 backgroundColor: project.color,
                 color: '#000',
@@ -156,10 +156,10 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             >
               {project.category}
             </span>
-            <h3 className="text-lg font-bold text-white mb-1">
+            <h3 className="text-xl font-bold text-white mb-1">
               {project.title}
             </h3>
-            <p className="text-white/65 text-[10px] mb-2 leading-snug">
+            <p className="text-white/60 text-[11px] mb-2.5 leading-snug">
               {project.description}
             </p>
             {project.link && (
@@ -167,18 +167,18 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[8px] font-semibold uppercase tracking-wider bg-white text-black hover:bg-white/90 transition-colors"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[9px] font-semibold uppercase tracking-wider bg-white text-black hover:bg-white/90 transition-colors"
               >
-                <Eye size={10} />
+                <Eye size={11} />
                 View
               </a>
             )}
           </motion.div>
         </div>
 
-        <div className="absolute top-3 right-3">
+        <div className="absolute top-4 right-4">
           <span 
-            className="px-2 py-1 rounded text-[8px] font-mono"
+            className="px-2.5 py-1 rounded text-[9px] font-mono"
             style={{ 
               backgroundColor: 'rgba(0,0,0,0.55)',
               color: 'rgba(255,255,255,0.55)',
@@ -191,14 +191,14 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
 
       {project.tag && (
         <motion.div
-          className="absolute -bottom-3 left-1/2 -translate-x-1/2"
+          className="absolute -bottom-3.5 left-1/2 -translate-x-1/2"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: index * 0.1 + 0.4 }}
+          transition={{ delay: index * 0.15 + 0.5 }}
         >
           <span 
-            className="px-2.5 py-1 rounded-full text-[8px] font-medium whitespace-nowrap"
+            className="px-3 py-1 rounded-full text-[9px] font-medium whitespace-nowrap"
             style={{ 
               backgroundColor: 'rgba(255,255,255,0.08)',
               color: 'rgba(255,255,255,0.6)',
@@ -215,53 +215,53 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
 
 export default function PortfolioSection() {
   return (
-    <section id="portfolio" className="relative min-h-screen bg-black py-24 overflow-hidden">
+    <section id="portfolio" className="relative min-h-screen bg-black py-28 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <motion.div
-          className="absolute top-0 left-[10%] w-[500px] h-[500px] bg-[#007FFF]/4 rounded-full blur-[120px]"
-          animate={{ x: [0, 30, 0], y: [0, 15, 0] }}
-          transition={{ duration: 15, repeat: Infinity }}
+          className="absolute top-0 left-[10%] w-[600px] h-[600px] bg-[#007FFF]/4 rounded-full blur-[150px]"
+          animate={{ x: [0, 40, 0], y: [0, 20, 0] }}
+          transition={{ duration: 18, repeat: Infinity }}
         />
         <motion.div
-          className="absolute bottom-0 right-[10%] w-[450px] h-[450px] bg-purple-500/4 rounded-full blur-[120px]"
-          animate={{ x: [0, -30, 0], y: [0, -15, 0] }}
-          transition={{ duration: 18, repeat: Infinity }}
+          className="absolute bottom-0 right-[10%] w-[500px] h-[500px] bg-purple-500/4 rounded-full blur-[150px]"
+          animate={{ x: [0, -40, 0], y: [0, -20, 0] }}
+          transition={{ duration: 22, repeat: Infinity }}
         />
       </div>
 
-      <div className="relative z-10 max-w-[1800px] mx-auto px-6">
+      <div className="relative z-10 max-w-[2000px] mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-6"
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center mb-8"
         >
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[0.95]">
+          <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[0.95]">
             <motion.span
-              initial={{ opacity: 0, y: 35 }}
+              initial={{ opacity: 0, y: 45 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.1 }}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="block"
             >
               A place to
             </motion.span>
             <motion.span
-              initial={{ opacity: 0, y: 35 }}
+              initial={{ opacity: 0, y: 45 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.2 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
               className="block text-transparent bg-clip-text bg-gradient-to-r from-[#007FFF] via-purple-400 to-[#007FFF]"
               style={{ backgroundSize: '200% auto' }}
             >
               display your
             </motion.span>
             <motion.span
-              initial={{ opacity: 0, y: 35 }}
+              initial={{ opacity: 0, y: 45 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.3 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
               className="block text-white/10"
             >
               masterpiece.
@@ -270,41 +270,47 @@ export default function PortfolioSection() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="flex flex-wrap justify-center gap-6 md:gap-8 mb-12"
+          transition={{ delay: 0.4, duration: 0.6 }}
+          className="flex flex-wrap justify-center gap-5 md:gap-6 mb-10"
         >
           {features.map((feature, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={{ opacity: 0, scale: 0.85 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.5 + i * 0.1 }}
-              className="flex items-center gap-2 px-4 py-2 rounded-full"
+              transition={{ delay: 0.5 + i * 0.1, duration: 0.4 }}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full"
               style={{
-                backgroundColor: `${feature.color}10`,
-                border: `1px solid ${feature.color}25`,
+                backgroundColor: `${feature.color}12`,
+                border: `1px solid ${feature.color}30`,
               }}
             >
-              <feature.icon size={14} style={{ color: feature.color }} />
-              <span className="text-[11px] font-medium" style={{ color: feature.color }}>
+              <feature.icon size={16} style={{ color: feature.color }} />
+              <span className="text-[12px] font-semibold" style={{ color: feature.color }}>
                 {feature.text}
               </span>
             </motion.div>
           ))}
         </motion.div>
 
-        <div className="relative h-[320px] md:h-[350px] flex items-center justify-center mb-16">
-          <div className="relative w-full max-w-6xl flex justify-center items-center">
+        <motion.div
+          className="relative h-[380px] md:h-[420px] flex items-center justify-center mb-20"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="relative w-full max-w-7xl flex justify-center items-center">
             {projects.map((project, index) => (
               <div 
                 key={index}
                 className="absolute"
                 style={{
-                  left: `calc(50% + ${(index - 2.5) * 160}px)`,
+                  left: `calc(50% + ${(index - 2.5) * 200}px)`,
                 }}
               >
                 <ProjectCard
@@ -314,25 +320,25 @@ export default function PortfolioSection() {
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
           className="text-center"
         >
           <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-black font-semibold text-xs uppercase tracking-wider hover:bg-[#007FFF] hover:text-white transition-all"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-white text-black font-semibold text-sm uppercase tracking-wider hover:bg-[#007FFF] hover:text-white transition-all"
             style={{
-              boxShadow: '0 8px 30px rgba(255,255,255,0.1)',
+              boxShadow: '0 10px 40px rgba(255,255,255,0.12)',
             }}
           >
             View All Projects
-            <ExternalLink size={14} />
+            <ExternalLink size={16} />
           </motion.button>
         </motion.div>
       </div>
