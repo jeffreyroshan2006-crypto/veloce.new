@@ -4,8 +4,9 @@ import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react'
 import { motion, AnimatePresence, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
 import { ArrowRight, Play, Globe, Zap, Shield, Layers, Sparkles, Smartphone, ExternalLink, Eye, ArrowUpRight, Video } from 'lucide-react';
 import { TextReveal } from '@/components/ui/TextReveal';
-import { ImageBackground } from '@/components/ui/ImageBackground';
+import { GradientWave } from '@/components/ui/gradient-wave';
 import { PageTransition } from '@/components/ui/PageTransition';
+import { WebGLText } from '@/components/ui/WebGLText';
 import ServicePillars from '@/components/sections/ServicePillars';
 import WhyVeloce from '@/components/sections/WhyVeloce';
 import CustomerSuccess from '@/components/sections/CustomerSuccess';
@@ -403,8 +404,8 @@ export default function Home() {
   return (
     <PageTransition>
       <div ref={containerRef} className="relative min-h-screen font-sans selection:bg-[#007FFF]/30 overflow-x-hidden">
-        {/* WebGL Background */}
-        <ImageBackground />
+        {/* WebGL Background with two color combos: Deep Lilac + Tea Green (orange/blue removed) */}
+        <GradientWave colors={["#9955BB", "#D0F0C0"]} />
 
         {/* Scroll Progress Indicator */}
         <motion.div
@@ -446,52 +447,54 @@ export default function Home() {
           </motion.div>
         </nav>
 
-        {/* Hero Section */}
+        {/* Premium Glass Box (Edge-highlighted) */}
         <section id="home" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-          <div className="max-w-7xl w-full relative z-10 px-6">
-            <div className="flex flex-col items-center text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full glass border border-white/10 text-[10px] font-black tracking-[0.3em] uppercase text-uptic-orange"
-              >
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-uptic-orange opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-uptic-orange"></span>
-                </span>
-                World-Class Digital Ecosystems
-              </motion.div>
-
-              <h1 className="text-[10vw] md:text-[12vw] font-black mb-12 mt-12 tracking-tighter leading-[0.8] text-white">
-                <PremiumHeroText text="VELOCE" />
-              </h1>
-
-              <div className="w-screen max-w-[100vw] overflow-hidden mb-16 relative left-1/2 -translate-x-1/2">
-                <InteractiveMarquee
-                  text="We build, enhance, and modernize applications and platforms for brands that refuse to settle for the ordinary."
-                  speed={0.045}
-                />
-              </div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7, duration: 0.6 }}
-                className="flex flex-col sm:flex-row gap-6 items-center"
-              >
-                <MagneticButton className="group relative px-10 py-5 rounded-full bg-white text-black font-black text-lg transition-all duration-300 hover:shadow-[0_0_40px_rgba(255,255,255,0.2)] overflow-hidden">
-                  <span className="relative z-10 flex items-center gap-3">
-                    Start Your Project <ArrowUpRight className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+          <div className="glass-wrap mx-auto w-full">
+            <div className="glass-premium rounded-3xl shadow-2xl flex flex-col items-center justify-center" style={{ height: 800, width: '100%', background: 'linear-gradient(135deg, rgba(153,85,187,.25), rgba(208,240,192,.25))', border: '1px solid rgba(255,255,255,.6)', borderRadius: '24px', backdropFilter: 'none' }}>
+              <div className="flex flex-col items-center text-center justify-center h-full w-full px-8 md:px-16">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full bg-white/10 border border-white/20 text-[10px] font-black tracking-[0.3em] uppercase text-uptic-orange"
+                >
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-uptic-orange opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-uptic-orange"></span>
                   </span>
-                </MagneticButton>
-                <button className="flex items-center gap-3 px-10 py-5 rounded-full glass font-bold text-lg hover:bg-white/10 transition-all duration-300 border border-white/10 group">
-                  <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300">
-                    <Play size={16} fill="currentColor" />
-                  </div>
-                  Our Service
-                </button>
-              </motion.div>
+                  World-Class Digital Ecosystems
+                </motion.div>
+
+                <div className="text-7xl md:text-8xl lg:text-9xl font-black mb-8 tracking-tighter leading-[0.8]">
+                  <PremiumHeroText text="VELOCE" />
+                </div>
+
+                <div className="w-full max-w-4xl overflow-hidden mb-12">
+                  <InteractiveMarquee
+                    text="We build, enhance, and modernize applications and platforms for brands that refuse to settle for the ordinary."
+                    speed={0.045}
+                  />
+                </div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.7, duration: 0.6 }}
+                  className="flex flex-col sm:flex-row gap-6 items-center"
+                >
+                  <MagneticButton className="group relative px-10 py-5 rounded-full bg-white text-black font-black text-lg transition-all duration-300 hover:shadow-[0_0_40px_rgba(255,255,255,0.2)] overflow-hidden">
+                    <span className="relative z-10 flex items-center gap-3">
+                      Start Your Project <ArrowUpRight className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </span>
+                  </MagneticButton>
+                  <button className="flex items-center gap-3 px-10 py-5 rounded-full bg-white/10 backdrop-blur-sm font-bold text-lg text-white hover:bg-white/20 transition-all duration-300 border border-white/20 group">
+                    <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300">
+                      <Play size={16} fill="currentColor" />
+                    </div>
+                    Our Service
+                  </button>
+                </motion.div>
+              </div>
             </div>
           </div>
         </section>
