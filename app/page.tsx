@@ -54,7 +54,7 @@ export default function Home() {
     <PageTransition>
       <div ref={containerRef} className="relative min-h-screen font-sans selection:bg-[#007FFF]/30 overflow-x-hidden">
         {/* WebGL Background */}
-        <GradientWave colors={["#002147", "#d2b48c"]} />
+        <GradientWave colors={["#A020F0", "#F8C8A0", "#A020F0", "#F5D0A9"]} />
 
         {/* Scroll Progress Indicator */}
         <motion.div
@@ -65,11 +65,11 @@ export default function Home() {
         {/* Premium Hero Section */}
         <section id="home" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
           <div className="glass-wrap mx-auto w-full">
-            <div className="glass-premium flex flex-col items-center justify-center" style={{ 
-              height: 800, 
-              width: 'calc(100vw - 2cm)', 
-              marginLeft: 'auto', 
-              marginRight: 'auto', 
+            <div className="glass-premium flex flex-col items-center justify-center" style={{
+              height: 800,
+              width: 'calc(100vw - 2cm)',
+              marginLeft: 'auto',
+              marginRight: 'auto',
               background: 'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%)',
               borderRadius: '32px',
               boxShadow: `
@@ -134,35 +134,35 @@ export default function Home() {
 
           <section className="py-24 px-6 relative">
             <div className="max-w-7xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <motion.div 
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        className="p-12 rounded-[3rem] bg-white/[0.03] border border-white/10 flex flex-col justify-between aspect-square md:aspect-video"
-                    >
-                        <div>
-                            <div className="text-purple-500 font-black tracking-widest text-[10px] uppercase mb-4">The Process</div>
-                            <h3 className="text-4xl font-bold text-white mb-6">How we bring your <br /> vision to life.</h3>
-                        </div>
-                        <a href="/process" className="inline-flex items-center gap-2 text-white font-bold group">
-                            Explore our process <ArrowRight className="group-hover:translate-x-2 transition-transform" />
-                        </a>
-                    </motion.div>
-                    <motion.div 
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.2 }}
-                        className="p-12 rounded-[3rem] bg-[#F59E0B]/10 border border-[#F59E0B]/20 flex flex-col justify-between aspect-square md:aspect-video"
-                    >
-                        <div>
-                            <div className="text-[#F59E0B] font-black tracking-widest text-[10px] uppercase mb-4">Security First</div>
-                            <h3 className="text-4xl font-bold text-white mb-6">Built on a foundation <br /> of absolute trust.</h3>
-                        </div>
-                        <a href="/security" className="inline-flex items-center gap-2 text-[#F59E0B] font-bold group">
-                            View architecture <ArrowRight className="group-hover:translate-x-2 transition-transform" />
-                        </a>
-                    </motion.div>
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  className="p-12 rounded-[3rem] bg-white/[0.03] border border-white/10 flex flex-col justify-between aspect-square md:aspect-video"
+                >
+                  <div>
+                    <div className="text-purple-500 font-black tracking-widest text-[10px] uppercase mb-4">The Process</div>
+                    <h3 className="text-4xl font-bold text-white mb-6">How we bring your <br /> vision to life.</h3>
+                  </div>
+                  <a href="/process" className="inline-flex items-center gap-2 text-white font-bold group">
+                    Explore our process <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+                  </a>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.2 }}
+                  className="p-12 rounded-[3rem] bg-[#F59E0B]/10 border border-[#F59E0B]/20 flex flex-col justify-between aspect-square md:aspect-video"
+                >
+                  <div>
+                    <div className="text-[#F59E0B] font-black tracking-widest text-[10px] uppercase mb-4">Security First</div>
+                    <h3 className="text-4xl font-bold text-white mb-6">Built on a foundation <br /> of absolute trust.</h3>
+                  </div>
+                  <a href="/security" className="inline-flex items-center gap-2 text-[#F59E0B] font-bold group">
+                    View architecture <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+                  </a>
+                </motion.div>
+              </div>
             </div>
           </section>
 
