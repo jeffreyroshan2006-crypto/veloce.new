@@ -1,74 +1,53 @@
-'use client';
+"use client";
 
-import React, { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, MotionValue } from 'framer-motion';
-import { Lock } from 'lucide-react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { ShieldCheck, Lock } from 'lucide-react';
 
-const text = `ALLYOUR\nPERSONAL\nDATA\nAND\nTRANSACTIONS\nARE\nENCRYPTED\nAND\nSECURED.\nTHERE’S\nNO\nROOM\nFOR\nMISTAKES\nBECAUSE\nWE\nDIDN’T\nLEAVE`;
-const words = text.split(/\s+/);
+const text = "ALL YOUR PERSONAL DATA AND TRANSACTIONS ARE ENCRYPTED AND SECURED. THERE’S NO ROOM FOR MISTAKES BECAUSE WE DIDN’T LEAVE ANY";
+const words = text.split(" ");
 
- function Word({ word, index, progress, fontSize = 32 }: { word: string; index: number; progress: MotionValue<number>; fontSize?: number }) {
-    const [opacity, setOpacity] = useState(0.15);
-    const [glow, setGlow] = useState(0);
+function GlowingWord({ word, index, scrollYProgress }: { word: string; index: number; scrollYProgress: any }) {
+    const start = index / words.length;
+    const end = (index + 1) / words.length;
 
-    useEffect(() => {
-        const unsubscribe = progress.on("change", (latest) => {
-            const start = index / words.length;
-            const end = start + (1 / words.length);
-            
-            if (latest < start) {
-                setOpacity(0.15);
-                setGlow(0);
-            } else if (latest > end) {
-                setOpacity(1);
-                setGlow(1);
-            } else {
-                const ratio = (latest - start) / (end - start);
-                setOpacity(0.15 + ratio * 0.85);
-                setGlow(ratio);
-            }
-        });
-        
-        return () => unsubscribe();
-    }, [index, progress]);
+    // Advanced Typographic Transitions
+    const opacity = useTransform(scrollYProgress, [start, end], [0.1, 1]);
+    const scale = useTransform(scrollYProgress, [start, end], [0.95, 1]);
+    const blur = useTransform(scrollYProgress, [start, end], ["blur(10px)", "blur(0px)"]);
+    const letterSpacing = useTransform(scrollYProgress, [start, end], ["-0.05em", "0.05em"]);
+    
+    // Dynamic Glow Burst
+    const glow = useTransform(scrollYProgress, [start, start + (end - start) / 2, end], [0, 1, 0.5]);
 
     return (
-        <span className="relative inline-block mx-2 my-1">
-            <span 
-                className="text-white/20 select-none"
-                style={{ 
-                    opacity: 1,
-                    fontFamily: '"Clash Display", "Satoshi", "General Sans", sans-serif',
-                    fontWeight: 600,
-                    fontSize: `${fontSize}px`
-                }}
-            >
-                {word.toUpperCase()}
+        <motion.span
+            style={{ opacity, scale, filter: blur, letterSpacing }}
+            className="relative inline-block mx-[0.2em] my-[0.1em]"
+        >
+            <span className="text-[6vh] md:text-[10vh] font-black uppercase tracking-tighter text-white leading-[0.9]">
+                {word}
             </span>
-            <span
-                className="absolute inset-0 text-white z-10 flex items-center justify-center"
-                style={{ opacity }}
+            
+            {/* High-Velocity Light Flash */}
+            <motion.div
+                style={{ opacity: glow }}
+                className="absolute inset-0 bg-white/40 blur-[40px] rounded-full pointer-events-none"
+            />
+            <motion.div
+                style={{ opacity: glow }}
+                className="absolute inset-0 text-white blur-[15px] pointer-events-none select-none"
             >
-                <span
-                    style={{
-                        fontFamily: '"Clash Display", "Satoshi", "General Sans", sans-serif',
-                        fontWeight: 600,
-                    fontSize: `${fontSize}px`,
-                        textShadow: glow > 0
-                            ? `0 0 ${30 * glow}px rgba(255,255,255,${0.9 * glow}), 0 0 ${60 * glow}px rgba(255,255,255,${0.5 * glow})`
-                            : 'none',
-                    }}
-                >
-                    {word.toUpperCase()}
+                <span className="text-[6vh] md:text-[10vh] font-black uppercase tracking-tighter leading-[0.9]">
+                    {word}
                 </span>
-            </span>
-        </span>
+            </motion.div>
+        </motion.span>
     );
 }
 
 export default function SecuritySection() {
     const containerRef = useRef<HTMLDivElement>(null);
-
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start start", "end end"]
@@ -78,47 +57,70 @@ export default function SecuritySection() {
         <section
             ref={containerRef}
             id="security"
-            className="relative bg-black min-h-[120vh] flex items-center justify-center overflow-hidden"
+            className="relative bg-[#0E1117] min-h-[300vh] flex flex-col items-center py-20 overflow-hidden"
         >
-            <style jsx global>{`
-                @import url('https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=satoshi@700,900&display=swap');
-            `}</style>
-
-            <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#F59E0B]/5 rounded-full blur-[120px]" />
+            {/* Global Ambience Architecture */}
+            <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden pointer-events-none">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#fb923c]/5 rounded-full blur-[200px]" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[180px]" />
+                
+                {/* Visual Watermarking */}
+                <motion.div 
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 0.03 }}
+                    className="absolute inset-0 flex items-center justify-center text-[40vw] font-black text-white select-none whitespace-nowrap"
+                >
+                    ENCRYPTED
+                </motion.div>
             </div>
-            
-            <div className="relative z-10 max-w-7xl mx-auto px-8 text-center py-20">
-                <div className="mb-32 text-center relative z-10">
-                    <motion.div
-                        initial={{ opacity: 0, y: 40 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                    >
-                        <h2 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tighter text-white leading-[0.95] uppercase">
-                            <span className="pricing-script-text text-[#F59E0B] text-3xl sm:text-4xl md:text-5xl inline-block -rotate-2 mr-3 mb-4 lowercase opacity-100 normal-case">
-                                Veloce Security & Architecture
-                            </span>
-                            <br className="hidden sm:block" />
-                            VELOCE GUARD - <br />
-                            <span className="text-white/30 tracking-tight">Infrastructure Excellence.</span>
-                        </h2>
-                    </motion.div>
-                </div>
 
-                <div className="flex flex-wrap justify-center items-center gap-2 max-w-3xl mx-auto">
-                    {words.map((word, index) => (
-                        <Word 
-                            key={index} 
-                            word={word} 
-                            index={index} 
-                            progress={scrollYProgress} 
-                            fontSize={32} 
-                        />
-                    ))}
-                </div>
+            {/* Static Branding Intro */}
+            <div className="relative z-10 max-w-7xl mx-auto px-6 text-center mb-60 mt-20">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    className="flex flex-col items-center gap-12"
+                >
+                    <div className="inline-flex items-center gap-4 px-6 py-2 rounded-full bg-white/5 border border-white/10">
+                        <ShieldCheck size={16} className="text-[#fb923c]" />
+                        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/60">Infrastructure Excellence</span>
+                    </div>
+
+                    <h2 className="text-6xl md:text-8xl lg:text-[10rem] font-black text-white leading-[0.8] tracking-tighter uppercase max-w-5xl">
+                        <span className="pricing-script-text text-[#fb923c] lowercase text-4xl md:text-8xl normal-case italic inline-block -rotate-3 mr-4">
+                            Veloce
+                        </span>
+                        <br />
+                        Guard —
+                    </h2>
+                </motion.div>
             </div>
+
+            {/* Immersive Scroll Block */}
+            <div className="relative z-20 w-full max-w-[90vw] mx-auto flex flex-wrap justify-center items-center text-center">
+                {words.map((word, index) => (
+                    <GlowingWord 
+                        key={index} 
+                        word={word} 
+                        index={index} 
+                        scrollYProgress={scrollYProgress} 
+                    />
+                ))}
+            </div>
+
+            {/* Bottom Final CTA / Detail */}
+            <motion.div 
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                className="relative z-10 mt-[100vh] mb-40 text-center"
+            >
+                <div className="flex flex-col items-center gap-6">
+                    <p className="text-white/40 text-lg md:text-2xl font-light tracking-tight max-w-2xl px-6">
+                        Engineering digital fortresses where security is embedded into the DNA of every line of code.
+                    </p>
+                    <div className="w-px h-24 bg-gradient-to-b from-[#fb923c] to-transparent mt-8" />
+                </div>
+            </motion.div>
         </section>
     );
 }
