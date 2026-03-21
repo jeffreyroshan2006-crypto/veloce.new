@@ -50,7 +50,7 @@ export function MegaFooter() {
   };
 
   return (
-    <footer className="relative w-full bg-[#0E1117] pt-20 pb-12 px-2 md:px-6 overflow-hidden transition-colors duration-700 ease-in-out" style={{ backgroundColor: getBgColor() }}>
+    <footer className="relative z-10 w-full bg-[#0E1117] pt-20 pb-12 px-2 md:px-6 overflow-hidden transition-colors duration-700 ease-in-out" style={{ backgroundColor: getBgColor() }}>
       
       {/* Immersive Contact Box */}
       <div className="max-w-[1440px] mx-auto relative z-10 bg-transparent rounded-[3rem] md:rounded-[4rem] p-8 md:p-20 flex flex-col min-h-[85vh] justify-between overflow-hidden">

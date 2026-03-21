@@ -101,7 +101,7 @@ export default function ServicePillars() {
                     {services.map((service, index) => (
                         <motion.div
                             key={index}
-                            className="bento-card group flex flex-col h-full"
+                            className="relative p-8 md:p-10 rounded-[2.5rem] bg-black/[0.35] backdrop-blur-[40px] border border-white/[0.08] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05),0_8px_32px_0_rgba(0,0,0,0.1)] overflow-hidden transition-all duration-500 hover:bg-black/[0.4] group flex flex-col h-full"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
